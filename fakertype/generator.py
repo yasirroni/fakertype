@@ -11,11 +11,7 @@ class int_generator:
         self.lb = lb
         self.ub = ub
 
-        self.seed = seed
-        if self.seed is None:
-            self.rng = random.Random()
-        else:
-            self.rng = random.Random(self.seed)
+        self.set_seed(seed)
             
     def __call__(self):
         return self.rng.randint(self.lb,self.ub)
@@ -25,3 +21,15 @@ class int_generator:
 
     def __next__(self):
         return self.rng.randint(self.lb,self.ub)
+
+    def set_seed(self, seed=None):
+        """Set or reset seed
+
+        Args:
+            seed (int or None, optional): Seed number. If None, reset seed randomly. Defaults to None.
+        """
+        self.seed = seed
+        if self.seed is None:
+            self.rng = random.Random()
+        else:
+            self.rng = random.Random(self.seed)
